@@ -55,8 +55,8 @@ public class EmployeeController : ControllerBase
     public async Task<IActionResult> Update(int id, [FromBody] Employee employee)
     {
         var roleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
-        if (roleClaim == null) return Forbid("User role claim is missing.");
-        var currentUserRole = Enum.Parse<Roles>(roleClaim);
+        if (string.IsNullOrEmpty(roleClaim) || !Enum.TryParse<Roles>(roleClaim, out var currentUserRole))
+            return Forbid("User role claim is missing.");
 
         foreach (var validator in _validators)
         {
@@ -71,6 +71,22 @@ public class EmployeeController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
+        var roleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
+        if (string.IsNullOrEmpty(roleClaim) || !Enum.TryParse<Roles>(roleClaim, out var currentUserRole))
+            return Forbid("User role claim is missing.");
+
+        var currentUserEmail = User.FindFirst(ClaimTypes.Name)?.Value;
+        if (string.IsNullOrEmpty(currentUserEmail))
+            return Forbid("User email claim is missing.");
+
+        var employeeToDelete = await _employeeService.GetEmployeeById(id);
+        if (employeeToDelete == null) return NotFound();
+
+        foreach (var validator in _validators)
+        {
+            validator.ValidateDelete(employeeToDelete, currentUserRole, currentUserEmail);
+        }
+
         var deleted = await _employeeService.DeleteEmployee(id);
         if (!deleted) return NotFound();
         return NoContent();

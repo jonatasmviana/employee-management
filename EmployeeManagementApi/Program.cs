@@ -35,29 +35,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddTransient<IEmployeeValidator, AgeValidator>();
 builder.Services.AddTransient<IEmployeeValidator, PermissionValidator>();
+builder.Services.AddTransient<IEmployeeValidator, PermissionDeleteValidator>();
 builder.Services.AddScoped<EmployeeService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-var key = Encoding.UTF8.GetBytes("ThisIsMySecretKey12345678901234567890");
-var tokenDescriptor = new SecurityTokenDescriptor
-{
-    Subject = new ClaimsIdentity(new[]
-    {
-        new Claim(ClaimTypes.Name, "TestUser"),
-        new Claim(ClaimTypes.Role, "Director")
-    }),
-    Expires = DateTime.UtcNow.AddHours(1),
-    Issuer = "CompanyName",
-    Audience = "MyApp",
-    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-};
-var tokenHandler = new JwtSecurityTokenHandler();
-var token = tokenHandler.CreateToken(tokenDescriptor);
-var jwtToken = tokenHandler.WriteToken(token);
-Console.WriteLine("Token: " + jwtToken);
 
 var app = builder.Build();
 

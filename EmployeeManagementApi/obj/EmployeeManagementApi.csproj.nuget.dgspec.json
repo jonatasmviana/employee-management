@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Jonatas\\Desktop\\desafio\\EmployeeManagement\\EmployeeManagementApi\\EmployeeManagementApi.csproj": {}
+    "C:\\Users\\Jonatas\\Desktop\\desafio\\employee-management\\EmployeeManagementApi\\EmployeeManagementApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Jonatas\\Desktop\\desafio\\EmployeeManagement\\EmployeeManagementApi\\EmployeeManagementApi.csproj": {
+    "C:\\Users\\Jonatas\\Desktop\\desafio\\employee-management\\EmployeeManagementApi\\EmployeeManagementApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Jonatas\\Desktop\\desafio\\EmployeeManagement\\EmployeeManagementApi\\EmployeeManagementApi.csproj",
+        "projectUniqueName": "C:\\Users\\Jonatas\\Desktop\\desafio\\employee-management\\EmployeeManagementApi\\EmployeeManagementApi.csproj",
         "projectName": "EmployeeManagementApi",
-        "projectPath": "C:\\Users\\Jonatas\\Desktop\\desafio\\EmployeeManagement\\EmployeeManagementApi\\EmployeeManagementApi.csproj",
+        "projectPath": "C:\\Users\\Jonatas\\Desktop\\desafio\\employee-management\\EmployeeManagementApi\\EmployeeManagementApi.csproj",
         "packagesPath": "C:\\Users\\Jonatas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Jonatas\\Desktop\\desafio\\EmployeeManagement\\EmployeeManagementApi\\obj\\",
+        "outputPath": "C:\\Users\\Jonatas\\Desktop\\desafio\\employee-management\\EmployeeManagementApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Jonatas\\AppData\\Roaming\\NuGet\\NuGet.Config"

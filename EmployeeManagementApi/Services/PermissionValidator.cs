@@ -8,6 +8,8 @@ public class PermissionValidator : IEmployeeValidator
     {
         if ((currentUserRole == Roles.Employee && employee.Role != Roles.Employee) ||
             (currentUserRole == Roles.Leader && employee.Role == Roles.Director))
-            throw new UnauthorizedAccessException("Cannot create a user with higher permissions.");
+            throw new UnauthorizedAccessException("Cannot create or update a user with higher permissions.");
     }
+
+    public void ValidateDelete(Employee employeeToDelete, Roles currentUserRole, string currentUserEmail) { }
 }

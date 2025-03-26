@@ -9,4 +9,6 @@ public class AgeValidator : IEmployeeValidator
         if (DateTime.Today.Year - employee.BirthDate.Year < 18)
             throw new ArgumentException("Employee must be 18 or older.");
     }
+
+    public void ValidateDelete(Employee employeeToDelete, Roles currentUserRole, string currentUserEmail) { }
 }
