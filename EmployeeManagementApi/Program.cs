@@ -6,12 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseUrls("http://localhost:5555");
+var port = builder.Configuration["Port"] ?? "5001";
+builder.WebHost.UseUrls($"http://localhost:{port}");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
