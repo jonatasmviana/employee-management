@@ -32,7 +32,7 @@ public class AuthController : ControllerBase
             return Unauthorized("Invalid credentials");
 
         var token = GenerateJwtToken(employee);
-        return Ok(new { Token = token });
+        return Ok(new { Name = employee.FirstName, Token = token });
     }
 
     private string GenerateJwtToken(Employee employee)

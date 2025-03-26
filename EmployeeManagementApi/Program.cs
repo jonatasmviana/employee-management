@@ -40,9 +40,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy("AllowLocalhost3000", policy =>
+  {
+    policy.WithOrigins("http://localhost:3000")
+          .AllowAnyHeader()
+          .AllowAnyMethod();
+  });
+});
 
-// Aplicar migrações automaticamente (opcional)
+var app = builder.Build();
+app.UseCors("AllowLocalhost3000");
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
