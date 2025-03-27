@@ -51,4 +51,5 @@ USER / EMPLOYEE REGISTER (Exemple of required fields)
 USER / EMPLOYEE UPDATE
 ![Edit](https://github.com/user-attachments/assets/4a4af088-b5c1-4828-b3dc-01f08237d904)
 
-
+SWAGGER OVERVIEW
+![swagger](https://github.com/user-attachments/assets/a3109375-1837-435d-9560-da588709e28e)
