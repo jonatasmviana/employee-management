@@ -21,24 +21,26 @@ import {
 export default function User() {
   const [loggedUserId, setLoggedUserId] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const router = useRouter()
 
+  const router = useRouter()
   const searchParams = useSearchParams()
   const mode = searchParams?.get('mode')
-  const userIdToDetail = searchParams?.get('id')
+  const userToUpdateId = searchParams?.get('id')
 
-  const { user, loading, error } = useUser(userIdToDetail ? Number(userIdToDetail) : null)
+  const { user, loading, error } = useUser(userToUpdateId ? Number(userToUpdateId) : null)
   const loggedUser = useUser(loggedUserId)
 
-  const roleRule = (loggedUser.user?.role ?? Infinity) < (user?.role ?? Infinity)
-  const creatingNewUser = !userIdToDetail && !user
-  const isViewMode = mode === 'view' || roleRule
-  const isEditMode = !!userIdToDetail && !isViewMode
+  const loggedUserRole = loggedUser.user?.role
+  const userToUpdateRole = user?.role
+  const rules = {
+    lowerRole: (loggedUserRole ?? 0) < (userToUpdateRole ?? 0),
+    isViewMode: mode === 'view',
+    isCreateMode: !user,
+  }
 
   useEffect(() => {
     const storedId = localStorage.getItem('id')
-    if (storedId)
-      setLoggedUserId(Number(storedId))
+    if (storedId) setLoggedUserId(Number(storedId))
   }, [])
 
   const handleGoBack = () => { router.push('/users')}
@@ -54,7 +56,7 @@ export default function User() {
         birthDate: data.birthDate ? data.birthDate : null
       }
 
-      await creatingNewUser
+      await rules?.isCreateMode
         ? userService.createUser(userFormatted)
         : userService.updateUser(userFormatted)
 
@@ -84,12 +86,12 @@ export default function User() {
       <UserContextProvider
         errors={errors}
         register={register}
-        isViewMode={isViewMode && !creatingNewUser}
+        isViewMode={rules?.isViewMode && !rules?.isCreateMode}
       >
         <FirstName />
         <LastName />
         <Email />
-        <Password isLoginOrCreatingNewUser={creatingNewUser} />
+        <Password isLoginOrCreatingNewUser={rules?.isCreateMode} />
         <DocNumber />
         <PhoneNumber phoneType={1} />
         <PhoneNumber phoneType={2} />
@@ -101,13 +103,13 @@ export default function User() {
         <button className="bg-blue-500 text-white p-2 rounded" onClick={handleGoBack}>
           Back
         </button>
-        {(creatingNewUser || isEditMode) && roleRule && (
+        {rules.lowerRole || rules.isViewMode ? <></> : (
           <button
             aria-label="create-update-user-button"
             className="bg-blue-500 text-white p-2 rounded"
             onClick={() => handleSubmit(onSubmit)()}
           >
-            {isEditMode ? 'Update user' : 'Create user'}
+            {rules?.isCreateMode ? 'Create user' : 'Update user'}
           </button>
         )}
       </div>
