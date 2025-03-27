@@ -82,6 +82,7 @@ export default function ListUsers() {
                 />
                 <Action
                   disabled={(user?.role ?? 0) < userList.role || userList?.id === user?.id}
+                  ariaLabel={`delete-button-${userList.id}`}
                   iconClass="far fa-trash-alt"
                   handleOnClick={() => handleDelete(userList?.id)}
                 />

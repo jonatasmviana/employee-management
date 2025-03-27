@@ -11,7 +11,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: 'Employee\'s control',
-  description: 'App to add items to buy',
+  description: 'App to add employee\'s',
 }
 
 export default function RootLayout({

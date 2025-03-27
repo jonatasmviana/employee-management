@@ -102,7 +102,11 @@ export default function User() {
           Back
         </button>
         {(creatingNewUser || isEditMode) && roleRule && (
-          <button className="bg-blue-500 text-white p-2 rounded" onClick={() => handleSubmit(onSubmit)()}>
+          <button
+            aria-label="create-update-user-button"
+            className="bg-blue-500 text-white p-2 rounded"
+            onClick={() => handleSubmit(onSubmit)()}
+          >
             {isEditMode ? 'Update user' : 'Create user'}
           </button>
         )}

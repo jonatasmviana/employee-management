@@ -1,29 +1,41 @@
 import { IUserDTO } from './IUserDTO'
 import { UserRole } from './UserRole'
 
-export const usersMock: IUserDTO[] = [
+export const mockUsers: IUserDTO[] = [
   {
     id: 1,
-    firstName: 'User',
-    lastName: 'Director',
-    email: 'user@director.com',
-    docNumber: 34878141026,
-    phone1: '51999887766',
-    phone2: '51999887766',
-    role: UserRole.Director,
+    firstName: 'Joao',
+    lastName: 'Silva',
+    role: UserRole.Employee,
+    email: 'joao.silva@example.com',
+    docNumber: 61431620009,
+    phone1: '12345678901',
+    phone2: '',
     password: '',
-    birthDate: '1995-01-01T00:00:00'
+    birthDate: null,
   },
   {
     id: 2,
-    firstName: 'User',
-    lastName: 'Leader',
-    email: 'user@leader.com',
-    docNumber: 44233279028,
-    phone1: '51999887766',
-    phone2: '51999887766',
+    firstName: 'Maria',
+    lastName: 'Souza',
     role: UserRole.Leader,
+    email: 'maria.souza@example.com',
+    docNumber: 66174349004,
+    phone1: '32165409871',
+    phone2: '',
     password: '',
-    birthDate: '1995-01-01T00:00:00'
+    birthDate: null,
   },
-]
+  {
+    id: 3,
+    firstName: 'Admin',
+    lastName: 'Santos',
+    role: UserRole.Director,
+    email: 'admin.santos@example.com',
+    docNumber: 44233279028,
+    phone1: '32165409871',
+    phone2: '',
+    password: '',
+    birthDate: null,
+  },
+];

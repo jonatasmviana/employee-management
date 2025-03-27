@@ -20,22 +20,6 @@ public class EmployeeController : ControllerBase
         _validators = validators;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] Employee employee)
-    {
-        var roleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
-        if (string.IsNullOrEmpty(roleClaim) || !Enum.TryParse<Roles>(roleClaim, out var currentUserRole))
-            return Forbid("User role claim is missing.");
-
-        foreach (var validator in _validators)
-        {
-            validator.Validate(employee, currentUserRole);
-        }
-
-        var createdEmployee = await _employeeService.CreateEmployee(employee);
-        return CreatedAtAction(nameof(GetById), new { id = createdEmployee.Id }, createdEmployee);
-    }
-
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -49,6 +33,25 @@ public class EmployeeController : ControllerBase
         var employee = await _employeeService.GetEmployeeById(id);
         if (employee == null) return NotFound();
         return Ok(employee);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] Employee employee)
+    {
+        var roleClaim = User.FindFirst(ClaimTypes.Role)?.Value;
+        if (string.IsNullOrEmpty(roleClaim) || !Enum.TryParse<Roles>(roleClaim, out var currentUserRole))
+            return Forbid("User role claim is missing.");
+
+        if (string.IsNullOrWhiteSpace(employee.Password))
+            return BadRequest("Password is required for creating an employee.");
+
+        foreach (var validator in _validators)
+        {
+            validator.Validate(employee, currentUserRole);
+        }
+
+        var createdEmployee = await _employeeService.CreateEmployee(employee);
+        return CreatedAtAction(nameof(GetById), new { id = createdEmployee.Id }, createdEmployee);
     }
 
     [HttpPut("{id}")]

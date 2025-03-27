@@ -19,6 +19,7 @@ export const BirthDate: React.FC = () => {
       <input
         type="date"
         disabled={isViewMode}
+        aria-label='birth-date'
         placeholder="xx/xx/xxxx"
         className={`default-input w-full px-3 py-1.5 ${errors?.birthDate?.type === "validate" && 'border-red-400'}`}
         {...register("birthDate", {
@@ -27,7 +28,7 @@ export const BirthDate: React.FC = () => {
         })}
       />
       {errors?.birthDate?.type === "validate" && (
-        <p className="text-red-500">
+        <p aria-label='birth-date-error-message' className="text-red-500">
           User must be at least 18 years old.
         </p>
       )}
