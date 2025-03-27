@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: EmployeeManagementApi/Dockerfile.api
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./EmployeeManagementApi/Data:/app/Data
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Data Source=/app/Data/EmployeeDb.db
+
+  web:
+    build:
+      context: .
+      dockerfile: employee-management-web/Dockerfile.web
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
