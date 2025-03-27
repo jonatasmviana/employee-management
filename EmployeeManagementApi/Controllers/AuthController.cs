@@ -28,11 +28,11 @@ public class AuthController : ControllerBase
         var employee = _context.Employees
             .FirstOrDefault(e => e.Email == request.Email);
 
-        if (employee == null || !BCrypt.Net.BCrypt.Verify(request.Password, employee.PasswordHash))
+        if (employee == null || !BCrypt.Net.BCrypt.Verify(request.Password, employee.Password))
             return Unauthorized("Invalid credentials");
 
         var token = GenerateJwtToken(employee);
-        return Ok(new { Name = employee.FirstName, Token = token });
+        return Ok(new { employee.Id, Token = token });
     }
 
     private string GenerateJwtToken(Employee employee)

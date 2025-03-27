@@ -1,13 +1,21 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Action from '@/components/Actions/Action'
 import { useListUsers } from '@/hooks/useListUsers'
+import { useUser } from '@/hooks/useUser'
 
 export default function ListUsers() {
+  const [id, setId] = useState<number | null>(null);
   const router = useRouter()
-  const userName = localStorage.getItem('name')
+  const { user } = useUser(id)
   const { users } = useListUsers()
+
+  useEffect(() => {
+    const storedId = localStorage.getItem('id')
+    if (storedId)
+      setId(Number(storedId))
+  }, [])
 
   const handleLogout = () => {
     localStorage.removeItem('name')
@@ -22,7 +30,7 @@ export default function ListUsers() {
   return (
     <>
       <div className='flex flex-row justify-between items-center'>
-        {userName && (<div>You are loged in with {userName} user</div>)}
+        {user && (<div>You are loged in with {user.firstName} user</div>)}
         <Action
           iconClass="fas fa-arrow-right-from-bracket"
           buttonClass="w-40 py-2 px-3 mb-5"
@@ -42,12 +50,12 @@ export default function ListUsers() {
           />
         </div>
 
-        {users.map((user, index) => {
+        {users.map((userList, index) => {
           return (
             <div key={index} className="flex justify-between items-center my-1">
               <input
                 type="text"
-                value={user.firstName + ' ' + user.lastName}
+                value={userList.firstName + ' ' + userList.lastName}
                 disabled
                 className="default-input w-full px-3 py-1.5 mr-1"
               />
@@ -55,14 +63,16 @@ export default function ListUsers() {
                 <Action
                   iconClass="fas fa-magnifying-glass"
                   buttonClass="mr-1"
-                  handleOnClick={() => redirectToViewUser(user.id)}
-                  />
+                  handleOnClick={() => redirectToViewUser(userList.id)}
+                />
                 <Action
+                  disabled={(user?.role ?? 0) < userList.role}
                   iconClass="fas fa-pencil"
                   buttonClass="mr-1"
-                  handleOnClick={() => redirectToEditUser(user.id)}
-                  />
+                  handleOnClick={() => redirectToEditUser(userList.id)}
+                />
                 <Action
+                  disabled={(user?.role ?? 0) < userList.role}
                   iconClass="far fa-trash-alt"
                   handleOnClick={() => null}
                 />

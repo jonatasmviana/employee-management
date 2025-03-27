@@ -7,11 +7,11 @@ export const usersMock: IUserDTO[] = [
     firstName: 'User',
     lastName: 'Director',
     email: 'user@director.com',
-    docNumber: '34878141026',
-    phones: ['51999887766'],
-    managerName: 'User Director',
+    docNumber: 34878141026,
+    phone1: '51999887766',
+    phone2: '51999887766',
     role: UserRole.Director,
-    passwordHash: '',
+    password: '',
     birthDate: '1995-01-01T00:00:00'
   },
   {
@@ -19,11 +19,11 @@ export const usersMock: IUserDTO[] = [
     firstName: 'User',
     lastName: 'Leader',
     email: 'user@leader.com',
-    docNumber: '44233279028',
-    phones: ['51999887766'],
-    managerName: 'User Leader',
+    docNumber: 44233279028,
+    phone1: '51999887766',
+    phone2: '51999887766',
     role: UserRole.Leader,
-    passwordHash: '',
+    password: '',
     birthDate: '1995-01-01T00:00:00'
   },
 ]

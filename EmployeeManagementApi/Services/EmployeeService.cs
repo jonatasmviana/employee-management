@@ -15,7 +15,7 @@ public class EmployeeService
 
     public async Task<Employee> CreateEmployee(Employee employee)
     {
-        employee.PasswordHash = BCrypt.Net.BCrypt.HashPassword(employee.PasswordHash);
+        employee.Password = BCrypt.Net.BCrypt.HashPassword(employee.Password);
         _context.Employees.Add(employee);
         await _context.SaveChangesAsync();
         return employee;
@@ -40,12 +40,12 @@ public class EmployeeService
         employee.LastName = updatedEmployee.LastName;
         employee.Email = updatedEmployee.Email;
         employee.DocNumber = updatedEmployee.DocNumber;
-        employee.Phones = updatedEmployee.Phones;
-        employee.ManagerName = updatedEmployee.ManagerName;
+        employee.Phone1 = updatedEmployee.Phone1;
+        employee.Phone2 = updatedEmployee.Phone2;
         employee.Role = updatedEmployee.Role;
         employee.BirthDate = updatedEmployee.BirthDate;
-        if (!string.IsNullOrEmpty(updatedEmployee.PasswordHash))
-            employee.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedEmployee.PasswordHash);
+        if (!string.IsNullOrEmpty(updatedEmployee.Password))
+            employee.Password = BCrypt.Net.BCrypt.HashPassword(updatedEmployee.Password);
 
         await _context.SaveChangesAsync();
         return employee;

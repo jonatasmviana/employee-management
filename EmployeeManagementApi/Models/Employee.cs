@@ -19,11 +19,11 @@ public class Employee
     [Required]
     public required string Email { get; set; }
     [Required]
-    public required string DocNumber { get; set; }
+    public required long DocNumber { get; set; }
     [Required]
-    public required string PasswordHash { get; set; }
-    public List<string> Phones { get; set; } = new();
-    public string? ManagerName { get; set; }
+    public required string Password { get; set; }
+    public string? Phone1 { get; set; }
+    public string? Phone2 { get; set; }
     public Roles Role { get; set; } = Roles.Employee;
     public DateTime BirthDate { get; set; }
 }

@@ -2,10 +2,12 @@
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form";
-import { isEmail } from "validator";
-import { IAuthDTO } from "@/infra/services/Auth/IAuthDTO";
 import { AuthService } from "@/infra/services/Auth/AuthService";
 import { IAuthService } from "@/infra/services/Auth/IAuthService";
+import { UserContextProvider } from '@/contexts/UserContext';
+import { Email } from "@/components/Inputs/Email";
+import { Password } from "@/components/Inputs/Password";
+import { IUserDTO } from "@/infra/services/User/IUserDTO";
 
 export default function Login() {
   const router = useRouter();
@@ -15,13 +17,16 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IAuthDTO>();
+  } = useForm<IUserDTO>();
 
-  const onSubmit = async (data: IAuthDTO) => {
+  const onSubmit = async (data: IUserDTO) => {
     const authService: IAuthService = new AuthService()
     try {
-      const { name, token } = await authService.login(data)
-      localStorage.setItem("name", name)
+      const { id, token } = await authService.login(data)
+
+      if (!id || !token) throw new Error('Error on login! No result for user or token!')
+
+      localStorage.setItem("id", id.toString())
       localStorage.setItem("token", token)
       router.push('/users')
     } catch (error) {
@@ -32,36 +37,17 @@ export default function Login() {
 
   return (
     <div className="w-full bg-white px-5 py-8 mt-14 rounded-lg shadow-dark-sm">
-      <div>E-mail</div>
-      <input
-        type="email"
-        placeholder="admin@admin.com"
-        className={`default-input w-full px-3 py-1.5 ${errors?.email && 'border-red-400'}`}
-        {...register("email", {
-          required: true,
-          validate: (value: string) => isEmail(value),
-        })}
-      />
-      {errors?.email?.type === "validate" && (
-        <p className="text-red-500">Email is invalid.</p>
-      )}
-      {errors?.email?.type === "required" && (
-        <p className="text-red-500">E-mail is required.</p>
-      )}
-
-      <div className="mt-5">Password</div>
-      <input
-        type="password"
-        placeholder="admin123"
-        className={`default-input w-full px-3 py-1.5 ${errors?.password && 'border-red-400'}`}
-        {...register("password", { required: true })}
-      />
-      {errors?.password?.type === "required" && (
-        <p className="text-red-500">Password is required.</p>
-      )}
+      <UserContextProvider
+        errors={errors}
+        register={register}
+        isViewMode={false}
+      >
+        <Email placeholder="admin@admin.com" />
+        <Password placeholder="admin123" />
+      </UserContextProvider>
 
       <div className={`flex justify-end ${!errors?.password && 'mt-5'}`}>
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded" onClick={() => handleSubmit(onSubmit)()}>
+        <button className="bg-blue-500 text-white p-2 rounded" onClick={() => handleSubmit(onSubmit)()}>
           Login
         </button>
       </div>

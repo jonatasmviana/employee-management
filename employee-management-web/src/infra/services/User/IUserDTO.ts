@@ -1,14 +1,14 @@
 import { UserRole } from "./UserRole"
 
 export interface IUserDTO {
-  id: number
+  id: number,
   firstName: string,
   lastName: string,
   email: string,
-  docNumber: string,
-  phones: string[],
-  managerName: string,
+  docNumber: number,
+  phone1: string,
+  phone2: string,
   role: UserRole,
-  passwordHash: string,
+  password: string,
   birthDate: string
 }

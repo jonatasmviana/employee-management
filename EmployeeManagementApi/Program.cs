@@ -65,11 +65,11 @@ using (var scope = app.Services.CreateScope())
             FirstName = "Admin",
             LastName = "User",
             Email = "admin@admin.com",
-            DocNumber = "76397263010",
-            Phones = new List<string> { "51988776655" },
-            ManagerName = null,
+            DocNumber = 76397263010,
+            Phone1 = "51988776655",
+            Phone2 = "",
             Role = Roles.Director,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
+            Password = BCrypt.Net.BCrypt.HashPassword("admin123"),
             BirthDate = new DateTime(1990, 1, 1)
         };
         dbContext.Employees.Add(initialEmployee);
