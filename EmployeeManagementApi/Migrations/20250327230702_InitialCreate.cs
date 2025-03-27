@@ -20,12 +20,12 @@ namespace EmployeeManagementApi.Migrations
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    DocNumber = table.Column<string>(type: "TEXT", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: false),
-                    Phones = table.Column<string>(type: "TEXT", nullable: false),
-                    ManagerName = table.Column<string>(type: "TEXT", nullable: true),
+                    DocNumber = table.Column<long>(type: "INTEGER", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone1 = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone2 = table.Column<string>(type: "TEXT", nullable: true),
                     Role = table.Column<int>(type: "INTEGER", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    BirthDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

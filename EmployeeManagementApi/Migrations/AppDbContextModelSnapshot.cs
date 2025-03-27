@@ -23,12 +23,11 @@ namespace EmployeeManagementApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateTime?>("BirthDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DocNumber")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<long>("DocNumber")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -42,15 +41,13 @@ namespace EmployeeManagementApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ManagerName")
+                    b.Property<string>("Password")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
+                    b.Property<string>("Phone1")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Phones")
-                        .IsRequired()
+                    b.Property<string>("Phone2")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Role")
