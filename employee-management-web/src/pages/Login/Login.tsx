@@ -5,8 +5,7 @@ import { useForm } from "react-hook-form";
 import { AuthService } from "@/infra/services/Auth/AuthService";
 import { IAuthService } from "@/infra/services/Auth/IAuthService";
 import { UserContextProvider } from '@/contexts/UserContext';
-import { Email } from "@/components/Inputs/Email";
-import { Password } from "@/components/Inputs/Password";
+import { Email, Password } from '@/components/Inputs'
 import { IUserDTO } from "@/infra/services/User/IUserDTO";
 
 export default function Login() {

@@ -3,11 +3,10 @@ import { UserContext } from "@/contexts/UserContext";
 import { isEmail } from 'validator';
 
 interface EmailProps {
-  email?: string;
   placeholder?: string;
 }
 
-export const Email: React.FC<EmailProps> = ({ email, placeholder }) => {
+export const Email: React.FC<EmailProps> = ({ placeholder }) => {
   const { isViewMode, errors, register } = useContext(UserContext);
 
   return (
@@ -15,7 +14,6 @@ export const Email: React.FC<EmailProps> = ({ email, placeholder }) => {
       <label>E-mail</label>
       <input
         type="email"
-        value={email}
         disabled={isViewMode}
         placeholder={placeholder || 'E-mail'}
         className={`default-input w-full px-3 py-1.5 ${errors?.email && 'border-red-400'}`}

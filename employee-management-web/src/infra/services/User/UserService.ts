@@ -1,7 +1,6 @@
 import AxiosHttpClientAdapter from '@/infra/adapters/AxiosHttpClientAdapter'
 import { IUserService } from './IUserService'
 import { IUserDTO } from './IUserDTO'
-import { usersMock } from './UsersMock'
 
 export class UserService
   extends AxiosHttpClientAdapter
@@ -17,20 +16,15 @@ export class UserService
     return response.data as IUserDTO[];
   }
 
-  async createUser(): Promise<void> {
-    return new Promise((resolve) => resolve())
-    // return super.post('/api/employee')
+  async createUser(user: IUserDTO): Promise<void> {
+    return super.post('/api/employee', user)
   }
 
-  async updateUser(user: IUserDTO): Promise<IUserDTO> {
-    console.log(user)
-    return new Promise((resolve) => resolve(usersMock[0]))
-    // return super.put('/api/employee')
+  async updateUser(user: IUserDTO): Promise<void> {
+    return super.put(`/api/employee/${user.id}`, user)
   }
 
   async deleteUser(id: number): Promise<void> {
-    console.log(id)
-    return new Promise((resolve) => resolve())
-    // return super.delete('/api/employee')
+    return super.delete(`/api/employee/${id}`)
   }
 }

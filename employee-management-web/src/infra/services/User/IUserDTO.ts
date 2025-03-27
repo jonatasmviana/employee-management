@@ -10,5 +10,5 @@ export interface IUserDTO {
   phone2: string,
   role: UserRole,
   password: string,
-  birthDate: string
+  birthDate: string | null
 }

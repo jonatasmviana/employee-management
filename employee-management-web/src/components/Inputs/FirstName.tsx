@@ -5,7 +5,7 @@ interface FirstNameProps {
   firstName?: string;
 }
 
-export const FirstName: React.FC<FirstNameProps> = ({ firstName }) => {
+export const FirstName: React.FC<FirstNameProps> = () => {
   const { isViewMode, errors, register } = useContext(UserContext);
 
   return (
@@ -13,7 +13,6 @@ export const FirstName: React.FC<FirstNameProps> = ({ firstName }) => {
       <label>First name</label>
       <input
         type="text"
-        value={firstName}
         disabled={isViewMode}
         placeholder="First name"
         className={`default-input w-full px-3 py-1.5 ${errors?.firstName && 'border-red-400'}`}

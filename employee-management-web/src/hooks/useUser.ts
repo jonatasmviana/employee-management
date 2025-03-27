@@ -15,7 +15,11 @@ export const useUser = (id?: number | null) => {
   const getUser = useCallback(async () => {
     if (!id) return;
     const response = await userService.getUser(id)
-    setUser(response)
+    const formattedUser = {
+      ...response,
+      birthDate: response.birthDate ? response.birthDate.split('T')[0] : null
+    };
+    setUser(formattedUser)
   }, [userService, id])
 
   useEffect(() => {

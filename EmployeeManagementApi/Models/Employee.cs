@@ -20,10 +20,9 @@ public class Employee
     public required string Email { get; set; }
     [Required]
     public required long DocNumber { get; set; }
-    [Required]
-    public required string Password { get; set; }
+    public string? Password { get; set; }
     public string? Phone1 { get; set; }
     public string? Phone2 { get; set; }
     public Roles Role { get; set; } = Roles.Employee;
-    public DateTime BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
 }

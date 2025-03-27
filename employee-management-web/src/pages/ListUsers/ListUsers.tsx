@@ -9,7 +9,7 @@ export default function ListUsers() {
   const [id, setId] = useState<number | null>(null);
   const router = useRouter()
   const { user } = useUser(id)
-  const { users } = useListUsers()
+  const { users, deleteUser } = useListUsers()
 
   useEffect(() => {
     const storedId = localStorage.getItem('id')
@@ -22,6 +22,15 @@ export default function ListUsers() {
     localStorage.removeItem('token')
     router.push('/login')
   }
+
+  const handleDelete = async (id?: number) => {
+    if (!id) {
+      console.error('Cannot delete user!');
+      return;
+    }
+
+    await deleteUser(id);
+  };
 
   const redirectToNewUser = () => router.push('/user')
   const redirectToViewUser = (id: number) => router.push(`/user?id=${id}&mode=view`)
@@ -72,9 +81,9 @@ export default function ListUsers() {
                   handleOnClick={() => redirectToEditUser(userList.id)}
                 />
                 <Action
-                  disabled={(user?.role ?? 0) < userList.role}
+                  disabled={(user?.role ?? 0) < userList.role || userList?.id === user?.id}
                   iconClass="far fa-trash-alt"
-                  handleOnClick={() => null}
+                  handleOnClick={() => handleDelete(userList?.id)}
                 />
               </div>
             </div>

@@ -3,10 +3,9 @@ import { UserContext } from "@/contexts/UserContext";
 
 interface PhoneNumberProps {
   phoneType: number;
-  phoneNumber?: string;
 }
 
-export const PhoneNumber: React.FC<PhoneNumberProps> = ({ phoneType = 1, phoneNumber }) => {
+export const PhoneNumber: React.FC<PhoneNumberProps> = ({ phoneType = 1 }) => {
   const { isViewMode, errors, register } = useContext(UserContext);
 
   const title = `Phone number ${phoneType}`
@@ -18,7 +17,6 @@ export const PhoneNumber: React.FC<PhoneNumberProps> = ({ phoneType = 1, phoneNu
       <label>{title}</label>
       <input
         type="number"
-        value={phoneNumber}
         disabled={isViewMode}
         placeholder={title}
         className={`default-input w-full px-3 py-1.5 ${phoneErrors && 'border-red-400'}`}

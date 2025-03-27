@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { IUserDTO } from '@/infra/services/User/IUserDTO';
 import { createContext } from 'react';
 import { FieldErrors, UseFormRegister } from "react-hook-form";
@@ -13,8 +14,6 @@ export const UserContext = createContext<IUserContext>({
   register: undefined as unknown as UseFormRegister<IUserDTO>,
   isViewMode: false,
 });
-
-import { ReactNode } from 'react';
 
 export const UserContextProvider = ({
   children,

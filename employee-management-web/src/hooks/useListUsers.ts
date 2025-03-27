@@ -28,7 +28,17 @@ export const useListUsers = () => {
     fetchUsers()
   }, [getUsers, router])
 
+  const deleteUser = async (id: number) => {
+    try {
+      await userService.deleteUser(id);
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    } catch (error) {
+      console.error('Erro ao deletar usuário:', error);
+    }
+  };
+
   return {
     users,
+    deleteUser
   }
 }

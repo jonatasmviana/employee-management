@@ -6,15 +6,17 @@ import { useUser } from '@/hooks/useUser'
 import { IUserDTO } from '@/infra/services/User/IUserDTO';
 import { UserService } from '@/infra/services/User/UserService';
 import { IUserService } from '@/infra/services/User/IUserService';
-import { FirstName } from '@/components/Inputs/FirstName';
-import { LastName } from '@/components/Inputs/LastName';
 import { UserContextProvider } from '@/contexts/UserContext';
-import { Email } from '@/components/Inputs/Email';
-import { Password } from '@/components/Inputs/Password';
-import { DocNumber } from '@/components/Inputs/DocNumber';
-import { PhoneNumber } from '@/components/Inputs/PhoneNumber';
-import { Role } from '@/components/Inputs/Role';
-import { BirthDate } from '@/components/Inputs/BirthDate';
+import {
+  FirstName,
+  LastName,
+  Email,
+  Password,
+  DocNumber,
+  PhoneNumber,
+  Role,
+  BirthDate
+} from '@/components/Inputs'
 
 export default function User() {
   const [loggedUserId, setLoggedUserId] = useState<number | null>(null);
@@ -28,8 +30,10 @@ export default function User() {
   const { user, loading, error } = useUser(userIdToDetail ? Number(userIdToDetail) : null)
   const loggedUser = useUser(loggedUserId)
 
-  const isViewMode = mode === 'view' || (loggedUser.user?.role ?? Infinity) < (user?.role ?? Infinity)
-  const isEditMode = userIdToDetail && !isViewMode
+  const roleRule = (loggedUser.user?.role ?? Infinity) < (user?.role ?? Infinity)
+  const creatingNewUser = !userIdToDetail && !user
+  const isViewMode = mode === 'view' || roleRule
+  const isEditMode = !!userIdToDetail && !isViewMode
 
   useEffect(() => {
     const storedId = localStorage.getItem('id')
@@ -43,7 +47,17 @@ export default function User() {
     const userService: IUserService = new UserService()
 
     try {
-      await userService.createUser(data)
+      const userFormatted = {
+        ...data,
+        role: Number(data.role),
+        docNumber: Number(data.docNumber),
+        birthDate: data.birthDate ? data.birthDate : null
+      }
+
+      await creatingNewUser
+        ? userService.createUser(userFormatted)
+        : userService.updateUser(userFormatted)
+
       router.push('/users')
     } catch (error) {
       const err = error as Error
@@ -52,10 +66,15 @@ export default function User() {
   };
 
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IUserDTO>();
+
+  useEffect(() => {
+    if (user) reset({ ...user, password: '' })
+  }, [user, reset]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error while loading user: {error}</div>;
@@ -65,24 +84,24 @@ export default function User() {
       <UserContextProvider
         errors={errors}
         register={register}
-        isViewMode={isViewMode}
+        isViewMode={isViewMode && !creatingNewUser}
       >
-        <FirstName firstName={user?.firstName} />
-        <LastName lastName={user?.lastName} />
-        <Email email={user?.email} />
-        <Password />
-        <DocNumber docNumber={user?.docNumber} />
-        <PhoneNumber phoneType={1} phoneNumber={user?.phone1} />
-        <PhoneNumber phoneType={2} phoneNumber={user?.phone2} />
-        <Role role={user?.role} />
-        <BirthDate birthDate={user?.birthDate} />
+        <FirstName />
+        <LastName />
+        <Email />
+        <Password isLoginOrCreatingNewUser={creatingNewUser} />
+        <DocNumber />
+        <PhoneNumber phoneType={1} />
+        <PhoneNumber phoneType={2} />
+        <Role />
+        <BirthDate />
       </UserContextProvider>
 
       <div className='flex justify-between mt-5'>
         <button className="bg-blue-500 text-white p-2 rounded" onClick={handleGoBack}>
           Back
         </button>
-        {!isViewMode && (
+        {(creatingNewUser || isEditMode) && roleRule && (
           <button className="bg-blue-500 text-white p-2 rounded" onClick={() => handleSubmit(onSubmit)()}>
             {isEditMode ? 'Update user' : 'Create user'}
           </button>

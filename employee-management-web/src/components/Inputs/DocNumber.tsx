@@ -1,19 +1,14 @@
 import { useContext } from 'react';
 import { UserContext } from "@/contexts/UserContext";
 
-interface DocNumberProps {
-  docNumber?: number;
-}
-
-export const DocNumber: React.FC<DocNumberProps> = ({ docNumber }) => {
+export const DocNumber: React.FC = () => {
   const { isViewMode, errors, register } = useContext(UserContext);
 
   return (
     <div className={errors?.docNumber ? 'mt-2' : 'mt-5'}>
       <label>Doc number (CPF)</label>
       <input
-        type="text"
-        value={docNumber}
+        type="number"
         disabled={isViewMode}
         placeholder="Doc number (CPF)"
         className={`default-input w-full px-3 py-1.5 ${errors?.docNumber && 'border-red-400'}`}
