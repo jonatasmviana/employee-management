@@ -8,8 +8,10 @@ Banco de dados SQLite integrado a api.
 
 _Alguns dados já foram cadastrados para popular a base._
 
-Usuário principal para acesso
+Usuário admin para acesso:
+
 User: admin@admin.com
+
 Pass: admin123
 
 
@@ -26,8 +28,10 @@ SQLite database integrated with the API.
 
 _Some data has already been registered to populate the database._
 
-Main user for access
+Admin user for access:
+
 User: admin@admin.com
+
 Password: admin123
 
 
