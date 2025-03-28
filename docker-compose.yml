@@ -13,13 +13,24 @@ services:
       - DOTNET_RUNNING_IN_CONTAINER=true
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Data Source=/app/Data/EmployeeDb.db
-  web:
+  nextjs:
     build:
       context: .
-      dockerfile: Dockerfile.web
+      dockerfile: Dockerfile.nextjs
     ports:
-      - "3000:80"
+      - "3000:3000"
     depends_on:
       - api
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - nextjs
+      - api
+
 volumes:
   db-data:

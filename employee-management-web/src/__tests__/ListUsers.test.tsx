@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useRouter } from 'next/navigation';
 import { useListUsers } from '@/hooks/useListUsers';
-import ListUsers from '@/pages/ListUsers/ListUsers';
+import ListUsers from '@/app/users/page';
 import { UserRole } from '@/infra/services/User/UserRole';
 import { useUser } from '@/hooks/useUser';
 import { mockUsers } from '@/infra/services/User/UsersMock';

@@ -1,0 +1,7 @@
+FROM node:18-alpine
+WORKDIR /app
+COPY employee-management-web/package*.json ./
+RUN npm install
+COPY employee-management-web/ .
+EXPOSE 3000
+CMD ["npm", "run", "dev"]
