@@ -1,0 +1,14 @@
+FROM node:18 AS build
+
+WORKDIR /app
+COPY employee-management-web/package*.json ./
+RUN npm install
+COPY employee-management-web/ .
+RUN npm run build
+
+FROM nginx:alpine
+
+COPY --from=build /app/out /usr/share/nginx/html
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
