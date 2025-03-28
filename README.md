@@ -1,12 +1,12 @@
 # Employee Management
 ## Doc português
-Projeto completo com API feita em .net 8 e front-end com React JS 18 e Typescript
+Projeto completo, com uma API desenvolvida em .NET 8, front-end utilizando React JS 18, Next.js 14 e Typescript, todo orquestrado e empacotado com Docker para garantir escalabilidade e facilidade de implantação.
 
 Ideia do projeto é de ter uma aplicação com CRUD simples, porém completo e funcional, seguindo princípios SOLID, tanto na API quanto no front.
-Cobertura de testes unitários realizados no front.
-Banco de dados SQLite integrado a api.
 
-_Alguns dados já foram cadastrados para popular a base._
+Realizado cobertura de testes unitários no front.
+
+Utilizado banco de dados SQLite integrado a api (_Alguns dados já foram cadastrados para popular a base._).
 
 Usuário admin para acesso:
 
@@ -21,12 +21,13 @@ Telas da aplicação: Login, Listagem, Cadastro, Edição, Visualização, e Exc
 
 ## Doc english
 Complete project with API made in .net 8 and front end with React JS 18
+A complete project with an API built in .NET 8, front-end with React JS 18, Next.js 14, and TypeScript, fully containerized with Docker to ensure scalability and to make it ease to deploy.
 
 The idea of ​​the project is to have an application with simple, yet complete and functional CRUD, following SOLID principles, both in the API and in the front end.
-Coverage of unit tests performed in the front end.
-SQLite database integrated with the API.
 
-_Some data has already been registered to populate the database._
+Coverage of unit tests performed in the front end.
+
+SQLite database integrated with the API (_Some data has already been registered to populate the database._).
 
 Admin user for access:
 
