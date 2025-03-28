@@ -1,6 +1,6 @@
 import AxiosHttpClientAdapter from '@/infra/adapters/AxiosHttpClientAdapter';
-import { UserService } from '../services/User/UserService';
-import { IUserDTO } from '../services/User/IUserDTO';
+import { UserService } from '@/infra/services/User/UserService';
+import { IUserDTO } from '@/infra/services/User/IUserDTO';
 
 jest.mock('@/infra/adapters/AxiosHttpClientAdapter');
 

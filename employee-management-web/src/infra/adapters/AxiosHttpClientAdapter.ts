@@ -1,7 +1,6 @@
 import axios, { Axios, AxiosError, AxiosResponse } from 'axios'
-import { IHttpClient } from '../IHttpClient'
 
-export default class AxiosHttpClientAdapter implements IHttpClient {
+export default class AxiosHttpClientAdapter {
   private API: Axios
 
   constructor() {

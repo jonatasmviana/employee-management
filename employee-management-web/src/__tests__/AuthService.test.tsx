@@ -1,5 +1,5 @@
 import AxiosHttpClientAdapter from '@/infra/adapters/AxiosHttpClientAdapter';
-import { AuthService } from '../services/Auth/AuthService';
+import { AuthService } from '@/infra/services/Auth/AuthService';
 
 jest.mock('@/infra/adapters/AxiosHttpClientAdapter');
 

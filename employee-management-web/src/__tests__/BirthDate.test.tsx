@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { UserContext } from '@/contexts/UserContext';
-import { BirthDate } from '../Inputs';
+import { BirthDate } from '@/components/Inputs';
 
 jest.mock('moment', () => {
   return jest.fn(() => ({

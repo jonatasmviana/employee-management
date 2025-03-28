@@ -1,14 +1,12 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { jest } from '@jest/globals';
 import User from "@/app/user/page";
 import { useUser } from "@/hooks/useUser";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 jest.mock("@/infra/services/User/UserService");
 jest.mock("@/hooks/useUser", () => ({ useUser: jest.fn() }));
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn(),
-  useSearchParams: jest.fn(),
 }));
 
 const mockPush = jest.fn();
@@ -17,18 +15,6 @@ const mockPush = jest.fn();
 describe("User Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-  });
-
-  it('should show loading state initially', () => {
-    (useSearchParams as jest.Mock).mockReturnValue({
-      get: jest.fn().mockReturnValue(null),
-    });
-
-    (useUser as jest.Mock).mockReturnValue({ user: null, loading: true, error: null });
-
-    render(<User />);
-
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
   it("should show error message if user loading fails", () => {

@@ -1,6 +1,7 @@
 'use client'
+export const dynamic = 'force-dynamic';
 import React, { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form";
 import { useUser } from '@/hooks/useUser'
 import { IUserDTO } from '@/infra/services/User/IUserDTO';
@@ -19,15 +20,13 @@ import {
 } from '@/components/Inputs'
 
 export default function User() {
+  const [queryParams, setQueryParams] = useState<{id?: string, mode?: string}>({})
   const [loggedUserId, setLoggedUserId] = useState<number | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const mode = searchParams?.get('mode')
-  const userToUpdateId = searchParams?.get('id')
-
-  const { user, loading, error } = useUser(userToUpdateId ? Number(userToUpdateId) : null)
+  const { id, mode } = queryParams
+  const { user, loading, error } = useUser(id ? Number(id) : null)
   const loggedUser = useUser(loggedUserId)
 
   const loggedUserRole = loggedUser.user?.role
@@ -42,6 +41,16 @@ export default function User() {
     const storedId = localStorage.getItem('id')
     if (storedId) setLoggedUserId(Number(storedId))
   }, [])
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      setQueryParams({
+        id: params.get('id') || undefined,
+        mode: params.get('mode') || undefined
+      });
+    }
+  }, []);
 
   const handleGoBack = () => { router.push('/users')}
 

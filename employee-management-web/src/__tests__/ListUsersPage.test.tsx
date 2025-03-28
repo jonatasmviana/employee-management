@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import ListUsersPage from '../users/page';
+import ListUsersPage from '@/app/users/page';
 
 jest.mock('@/pages/ListUsers/ListUsers', () => {
   return jest.fn(() => <div>List of users</div>);

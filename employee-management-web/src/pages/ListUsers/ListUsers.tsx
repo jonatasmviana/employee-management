@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Action from '@/components/Actions/Action'
 import { useListUsers } from '@/hooks/useListUsers'
 import { useUser } from '@/hooks/useUser'
+import Action from '@/components/Actions/Action'
 
 export default function ListUsers() {
   const [id, setId] = useState<number | null>(null);
