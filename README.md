@@ -28,7 +28,7 @@ A complete project with an API built in .NET 8, front-end with React JS 18, Next
 
 The idea of ​​the project is to have an application with simple, yet complete and functional CRUD, following SOLID principles, both in the API and in the front end.
 
-Azure Service Bus: Implemented a small example of events usege with Azure Service Bus (sending an email when creating a user). 
+Azure Service Bus: Implemented a small example of events usage with Azure Service Bus (sending an email when creating a user). 
 PS.: _Azure connection string configuration required for the event to work! However, if there is no configuration, the application will work as well, but without the event!_
 
 Tests: Coverage of unit tests performed in the front end.
