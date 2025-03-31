@@ -13,6 +13,7 @@ services:
       - DOTNET_RUNNING_IN_CONTAINER=true
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Data Source=/app/Data/EmployeeDb.db
+      - ServiceBus__ConnectionString=
   nextjs:
     build:
       context: .

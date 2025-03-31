@@ -1,9 +1,11 @@
-using EmployeeManagementApi.Models;
-using EmployeeManagementApi.Data;
-using EmployeeManagementApi.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Azure.Messaging.ServiceBus;
+using EmployeeManagementApi.Models;
+using EmployeeManagementApi.Data;
+using EmployeeManagementApi.Services;
+using EmployeeManagementApi.BackgroundServices;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,6 +38,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+var serviceBusConnectionString = builder.Configuration["ServiceBus:ConnectionString"] ?? Environment.GetEnvironmentVariable("ServiceBus__ConnectionString") ?? "";
+if (!string.IsNullOrEmpty(serviceBusConnectionString))
+{
+    builder.Services.AddSingleton<ServiceBusClient>(sp => new ServiceBusClient(serviceBusConnectionString));
+    builder.Services.AddHostedService<EmailSenderService>();
+}
+else
+{
+    builder.Services.AddSingleton<ServiceBusClient>(sp => new NoOpServiceBusClient());
+}
+
 builder.Services.AddTransient<IEmployeeValidator, AgeValidator>();
 builder.Services.AddTransient<IEmployeeValidator, PermissionValidator>();
 builder.Services.AddTransient<IEmployeeValidator, PermissionDeleteValidator>();
@@ -47,12 +60,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(options =>
 {
-  options.AddPolicy("AllowLocalhost3000", policy =>
-  {
-    policy.WithOrigins("http://localhost:3000")
-          .AllowAnyHeader()
-          .AllowAnyMethod();
-  });
+    options.AddPolicy("AllowLocalhost3000", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
 });
 
 var app = builder.Build();

@@ -3,6 +3,8 @@ using EmployeeManagementApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Azure.Messaging.ServiceBus;
+using EmployeeManagementApi.Events;
 
 namespace EmployeeManagementApi.Controllers;
 
@@ -13,11 +15,13 @@ public class EmployeeController : ControllerBase
 {
     private readonly EmployeeService _employeeService;
     private readonly IEnumerable<IEmployeeValidator> _validators;
+    private readonly ServiceBusClient _serviceBusClient;
 
-    public EmployeeController(EmployeeService employeeService, IEnumerable<IEmployeeValidator> validators)
+    public EmployeeController(EmployeeService employeeService, IEnumerable<IEmployeeValidator> validators, ServiceBusClient serviceBusClient)
     {
         _employeeService = employeeService;
         _validators = validators;
+        _serviceBusClient = serviceBusClient;
     }
 
     [HttpGet]
@@ -51,6 +55,27 @@ public class EmployeeController : ControllerBase
         }
 
         var createdEmployee = await _employeeService.CreateEmployee(employee);
+
+        if (_serviceBusClient != null)
+        {
+            var @event = new EmployeeCreatedEvent(createdEmployee.Id, createdEmployee.Email, createdEmployee.FirstName);
+            ServiceBusSender sender = _serviceBusClient.CreateSender("employee-events");
+            try
+            {
+                string messageBody = System.Text.Json.JsonSerializer.Serialize(@event);
+                var message = new ServiceBusMessage(messageBody);
+                await sender.SendMessageAsync(message);
+            }
+            finally
+            {
+                await sender.DisposeAsync();
+            }
+        }
+        else
+        {
+            Console.WriteLine($"Service Bus not configured. Can not send welcome e-mail!");
+        }
+
         return CreatedAtAction(nameof(GetById), new { id = createdEmployee.Id }, createdEmployee);
     }
 
