@@ -4,9 +4,13 @@ Projeto completo, com uma API desenvolvida em .NET 8, front-end utilizando React
 
 Ideia do projeto é de ter uma aplicação com CRUD simples, porém completo e funcional, seguindo princípios SOLID, tanto na API quanto no front.
 
-Realizado cobertura de testes unitários no front.
+Implementado um pequeno exemplo de funcionamento de utilização de eventos com Azure Service Bus (envio de e-mail ao criar usuário).
 
-Utilizado banco de dados SQLite integrado a api (_Alguns dados já foram cadastrados para popular a base._).
+Realizado cobertura de testes unitários no front-end.
+
+Banco de dados SQLite integrado a api.
+
+_Alguns dados já foram cadastrados para popular a base._
 
 Usuário admin para acesso:
 
@@ -24,6 +28,8 @@ Complete project with API made in .net 8 and front end with React JS 18
 A complete project with an API built in .NET 8, front-end with React JS 18, Next.js 14, and TypeScript, fully containerized with Docker to ensure scalability and to make it ease to deploy.
 
 The idea of ​​the project is to have an application with simple, yet complete and functional CRUD, following SOLID principles, both in the API and in the front end.
+
+Implemented a small example of events usege with Azure Service Bus (sending an email when creating a user).
 
 Coverage of unit tests performed in the front end.
 
