@@ -4,13 +4,12 @@ Projeto completo, com uma API desenvolvida em .NET 8, front-end utilizando React
 
 Ideia do projeto é de ter uma aplicação com CRUD simples, porém completo e funcional, seguindo princípios SOLID, tanto na API quanto no front.
 
-Implementado um pequeno exemplo de funcionamento de utilização de eventos com Azure Service Bus (envio de e-mail ao criar usuário).
+Azure Service Bus: Implementado um pequeno exemplo de funcionamento de utilização de eventos com Azure Service Bus (envio de e-mail ao criar usuário).
+OBS.: _Necessário fazer configuração de connection string do Azure para que o evento funcione! Mas caso não seja feito a configuração, a aplicação funcionará normalmente, mas sem o evento!_
 
-Realizado cobertura de testes unitários no front-end.
+Testes: Realizado cobertura de testes unitários no front-end.
 
-Banco de dados SQLite integrado a api.
-
-_Alguns dados já foram cadastrados para popular a base._
+Banco de dados: SQLite integrado a api (_Alguns dados já foram cadastrados para popular a base._)
 
 Usuário admin para acesso:
 
@@ -29,11 +28,12 @@ A complete project with an API built in .NET 8, front-end with React JS 18, Next
 
 The idea of ​​the project is to have an application with simple, yet complete and functional CRUD, following SOLID principles, both in the API and in the front end.
 
-Implemented a small example of events usege with Azure Service Bus (sending an email when creating a user).
+Azure Service Bus: Implemented a small example of events usage with Azure Service Bus (sending an email when creating a user). 
+PS.: _Azure connection string configuration required for the event to work! However, if there is no configuration, the application will work as well, but without the event!_
 
-Coverage of unit tests performed in the front end.
+Tests: Coverage of unit tests performed in the front end.
 
-SQLite database integrated with the API (_Some data has already been registered to populate the database._).
+Database: SQLite database integrated with the API (_Some data has already been registered to populate the database._).
 
 Admin user for access:
 
